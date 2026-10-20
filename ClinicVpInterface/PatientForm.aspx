@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Home Page" Language="C#" Async="true" MasterPageFile="~/Site.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ClinicVpInterface._Default" %>
+﻿<%@ Page Title="Home Page" Language="C#" Async="true" MasterPageFile="~/Site.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="PatientForm.aspx.cs" Inherits="ClinicVpInterface.PatientForm" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -6,7 +6,7 @@
 
         <asp:UpdatePanel runat="server">
             <ContentTemplate>
-                <div id="blackContainer" runat="server" visible="true" class="container-message-result">
+                <div id="blackContainer" runat="server" visible="false" class="container-message-result">
                     <div class="message-result">
                         <asp:Label ID="messageResult" Style="font-size: 16px; font-weight: 500; text-align: center;" Text="Ocorreu um erro ao tentar cadastrar este paceinte!" runat="server" />
                         <asp:Button OnClick="CloseModalResponse" ID="finish" CssClass="btn btn-primary btn-finish" Text="Concluir" runat="server" />

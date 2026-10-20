@@ -11,7 +11,7 @@ namespace ClinicVpInterface
 {
 
 
-    public partial class _Default
+    public partial class PatientForm
     {
 
         /// <summary>

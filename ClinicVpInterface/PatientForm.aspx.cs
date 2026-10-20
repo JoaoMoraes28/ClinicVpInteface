@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace ClinicVpInterface
 {
-    public partial class _Default : System.Web.UI.Page
+    public partial class PatientForm : System.Web.UI.Page
     {
         readonly private Cep _servicesCep = new Cep();
         readonly private Uf _serviceUf = new Uf();
