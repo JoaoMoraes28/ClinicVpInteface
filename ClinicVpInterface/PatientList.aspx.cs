@@ -1,17 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using ClinicVpInterface.Services.Patient;
+using System;
 
 namespace ClinicVpInterface
 {
     public partial class PatientList : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
+
+        readonly private Patient _servicePatient = new Patient();
+
+        protected async void Page_Load(object sender, EventArgs e)
         {
 
+            var (patients, statusCode) = await _servicePatient.GetPatientsPreview();
+
+            rptPatients.DataSource = patients;
+            rptPatients.DataBind();
+
         }
+
+
     }
 }

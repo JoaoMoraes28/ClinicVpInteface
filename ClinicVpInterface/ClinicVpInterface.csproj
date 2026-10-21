@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="Components\PatientCard.ascx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -188,6 +189,13 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Components\PatientCard.ascx.cs">
+      <DependentUpon>PatientCard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\PatientCard.ascx.designer.cs">
+      <DependentUpon>PatientCard.ascx</DependentUpon>
+    </Compile>
     <Compile Include="PatientForm.aspx.cs">
       <DependentUpon>PatientForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -209,6 +217,7 @@
     <Compile Include="Services\Cep\Cep.cs" />
     <Compile Include="Services\Cep\CepDto.cs" />
     <Compile Include="Services\Patient\Patient.cs" />
+    <Compile Include="Services\Patient\PatientResponseDto.cs" />
     <Compile Include="Services\Patient\PatientWriteDto.cs" />
     <Compile Include="Services\Patient\ResponseWriteModel.cs" />
     <Compile Include="Services\Uf\Uf.cs" />

@@ -1,6 +1,8 @@
 ﻿:root {
     --blue-primary: #27649E;
     --bg-primary: #F1F5F9;
+    --default-card-patient: #D3DDE6;
+    --default-card-patient-hover: #89AED0;
 }
 
 body {
@@ -188,16 +190,17 @@ input[type=radio] {
     width: 70%;
     border: 1px solid var(--blue-primary);
     border-radius: 5px;
-    overflow: hidden; 
+    overflow: hidden;
     height: 40px;
 }
-.search-container input {
-     border: none;
-     height: 100%;
-     background: #ffffff;
-     flex: 1;
-     padding: 0 12px;
-}
+
+    .search-container input {
+        border: none;
+        height: 100%;
+        background: #ffffff;
+        flex: 1;
+        padding: 0 12px;
+    }
 
 .btn-search {
     background-color: #27649E;
@@ -211,70 +214,72 @@ input[type=radio] {
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
-.btn-search:hover {
-    background-color: #333333;
-}
-.btn-search i {
-    color: #ffffff;
-    font-size: 14px;
-}
+
+    .btn-search:hover {
+        background-color: #333333;
+    }
+
+    .btn-search i {
+        color: #ffffff;
+        font-size: 14px;
+    }
 
 .add-patient-container i {
-   color: #ffffff;
-
+    color: #ffffff;
 }
 
 .patient-list-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
     width: 100%;
 }
 
-
 .patient-card {
     display: flex;
-    align-items: center;
-    gap: 16px;
-    background-color: #D3DDE6;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: filter 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    border-radius: 10px;
+    background-color: var(--default-card-patient);
+    transition-duration: 0.1s;
 }
 
-    .patient-card:hover {
-        transform: translateY(-2px);
-        background-color: #89AED0;
-    }
+.patient-card:hover {
+    background-color: var(--default-card-patient-hover);
+    box-shadow: rgba(0, 0, 0, 0.51) 2px 2px 5px;
+}
 
-.patient-icon {
+.photo-profile {
+    width: auto;
+    height: 45%;
+}
+
+.containter-patient-photo {
     display: flex;
-    align-items: center;
     justify-content: center;
-    color: #0066cc;
-    padding: 12px;
-    border-radius: 50%;
-    border: 1px solid #000000;
-}
-
-.divider-vertical {
-    width: 1px;
+    align-items: center;
+    width: 30%;
     height: 100%;
-    background-color: #ffffff;
-    align-self: center; 
-    margin: 0 12px;
+    border-right: solid;
+    border-width: 1px;
+    border-color: white;
 }
 
-.patient-info {
+.datas-container {
     display: flex;
-    width: 80%;
-    align-content: center;
-    text-align: center;
     flex-direction: column;
-    gap: 4px;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 70%;
+    height: 100%;
+    border-left: solid;
+    border-width: 1px;
+    border-color: white;
 }
+
+.name {
+    font-weight: 600;
+}
+
 .add-patient-container {
     display: flex;
     justify-content: center;
@@ -287,14 +292,17 @@ input[type=radio] {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
     .add-patient-container:hover {
         height: 40px;
     }
-.add-patient-container span {
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 16px;
-}
+
+    .add-patient-container span {
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
     .add-patient-container a {
         color: #ffffff;
         font-weight: bold;
@@ -328,6 +336,14 @@ input[type=radio] {
         width: 50%;
         aspect-ratio: 16 / 8;
     }
+
+    .patient-list-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .patient-card {
+        aspect-ratio: 16 / 6;
+    }
 }
 
 @media screen and (min-width: 1280px) {
@@ -342,5 +358,23 @@ input[type=radio] {
 
     .message-result {
         width: 40%;
+    }
+
+    .patient-list-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .patient-card {
+        aspect-ratio: 16 / 6;
+    }
+}
+
+@media screen and (min-width: 1536px) {
+    .patient-list-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .patient-card {
+        aspect-ratio: 16 / 6;
     }
 }
