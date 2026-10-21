@@ -54,5 +54,22 @@ namespace ClinicVpInterface.Services.Patient
             return (statusPatient, response.StatusCode);
         }
 
+        public async Task<(PatientResponseDto patient, HttpStatusCode statusCode)> GetPatientId(int id)
+        {
+            HttpResponseMessage response = await http.GetAsync($"{urlBase}/{id}");
+
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                return (null, response.StatusCode);
+            }
+
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
+            var patient = JsonSerializer.Deserialize<PatientResponseDto>(jsonResponse, options);
+
+            return (patient, response.StatusCode);
+        }
     }
 }

@@ -210,7 +210,7 @@
 
         <div style="width: 100%; display: flex; flex-direction: column; justify-content: space-between; align-content: center; height: 120px;">
             <asp:Label CssClass="text-danger text-center w-100" ID="errorMessage" Text="" runat="server" />
-            <asp:Button OnClick="RegisterPatient" CssClass="btn btn-primary button-register" Text="Cadastrar" runat="server" />
+            <asp:Button ID="submitButton" OnClick="RegisterPatient" CssClass="btn btn-primary button-register" Text="Cadastrar" runat="server" />
         </div>
     </main>
 
