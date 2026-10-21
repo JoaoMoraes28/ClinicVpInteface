@@ -14,14 +14,42 @@ namespace ClinicVpInterface
         readonly private Uf _serviceUf = new Uf();
         readonly private Patient _servicePatient = new Patient();
 
-        public bool[] fieldSetListVisibility = { true, false, false };
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 DataBind();
             }
+
+            if (Request.QueryString["id"] != null)
+            {
+                submitButton.Text = "Atualizar";
+                int patientId = Convert.ToInt32(Request.QueryString["id"]);
+                RegisterValuesInFields(patientId);
+            }
+        }
+
+        private async Task<(PatientResponseDto, HttpStatusCode)> GetPatientId(int id)
+        {
+            return await _servicePatient.GetPatientId(id);
+        }
+
+        private async void RegisterValuesInFields(int id)
+        {
+            var (patient, statusCode) = await GetPatientId(id);
+
+            name.Text = $"{patient.Patient.Name}";
+            cpf.Text = $"{patient.Patient.Cpf}";
+            civilState.Text = $"{SetValueCivilState(patient.Patient.CivilState)}";
+            profession.Text = $"{patient.Patient.Professional}";
+            gender.Text = $"{(patient.Patient.Gender.ToLower() == "male" ? "Masculino" : "Feminino")}";
+            email.Text = $"{patient.Patient.Email}";
+            phone.Text = $"{patient.Patient.Phone}";
+            emergencyPhone.Text = $"{patient.Patient.PhoneEmergency}";
+            weight.Text = $"{patient.Patient.Weight}";
+            height.Text = $"{patient.Patient.Height}";
+            bornDate.Text = $"{patient.Patient.BornDate}";
+            bloodType.Text = $"{SetValueBloodType(patient.Patient.BloodType)}";
         }
 
         protected void ChangeVisibilityFieldset(object sender, EventArgs e)
@@ -231,6 +259,35 @@ namespace ClinicVpInterface
                 case "O-": return "O_NEGATIVE";
                 case "AB+": return "AB_POSITIVE";
                 case "AB-": return "AB_NEGATIVE";
+                default: return "";
+            }
+        }
+
+        private string SetValueBloodType(string type)
+        {
+            switch (type.ToLower())
+            {
+                case "a_positive": return "A+";
+                case "a_negative": return "A-";
+                case "b_positive": return "B+";
+                case "b_negative": return "B-";
+                case "o_positive": return "O+";
+                case "o_negative": return "O-";
+                case "ab_positive": return "AB+";
+                case "ab_negative": return "AB-";
+                default: return "";
+            }
+        }
+
+        private string SetValueCivilState(string state)
+        {
+            switch (state.ToLower())
+            {
+                case "married": return "Casado(a)";
+                case "single": return "Solteiro(a)";
+                case "divorcied": return "Divorciado(a)";
+                case "separated": return "Separado(a)";
+                case "widowed": return "Viúvo(a)";
                 default: return "";
             }
         }

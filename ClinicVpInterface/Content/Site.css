@@ -23,6 +23,11 @@ input {
     padding: 0px 8px;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .text-patient {
     width: 100%;
     height: 100%;
@@ -241,6 +246,10 @@ input[type=radio] {
     border-radius: 10px;
     background-color: var(--default-card-patient);
     transition-duration: 0.1s;
+}
+
+a:hover {
+    color: inherit;
 }
 
 .patient-card:hover {
