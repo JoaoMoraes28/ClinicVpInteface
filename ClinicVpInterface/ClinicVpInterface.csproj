@@ -122,6 +122,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="favicon.png" />
     <Content Include="PatientForm.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

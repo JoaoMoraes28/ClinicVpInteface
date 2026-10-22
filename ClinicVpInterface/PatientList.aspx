@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" Async="true" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PatientList.aspx.cs" Inherits="ClinicVpInterface.PatientList" %>
+﻿<%@ Page Title="Pacientes" Language="C#" Async="true" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PatientList.aspx.cs" Inherits="ClinicVpInterface.PatientList" %>
 
 <%@ Register Src="~/Components/PatientCard.ascx" TagName="Card" TagPrefix="uc1" %>
 

@@ -19,19 +19,42 @@ namespace ClinicVpInterface
             if (!IsPostBack)
             {
                 DataBind();
-            }
 
-            if (Request.QueryString["id"] != null)
-            {
-                submitButton.Text = "Atualizar";
-                int patientId = Convert.ToInt32(Request.QueryString["id"]);
-                RegisterValuesInFields(patientId);
+                if (Request.QueryString["id"] != null)
+                {
+                    submitButton.Text = "Atualizar";
+                    int patientId = Convert.ToInt32(Request.QueryString["id"]);
+                    RegisterValuesInFields(patientId);
+
+                }
             }
         }
 
-        private async Task<(PatientResponseDto, HttpStatusCode)> GetPatientId(int id)
+
+        //Métodos que manipulam dados e interações do HTML
+        private void CleanFields()
         {
-            return await _servicePatient.GetPatientId(id);
+            name.Text = "";
+            cpf.Text = "";
+            civilState.Text = "";
+            profession.Text = "";
+            gender.Text = "";
+            email.Text = "";
+            phone.Text = "";
+            emergencyPhone.Text = "";
+            weight.Text = "";
+            height.Text = "";
+            bornDate.Text = "";
+            bloodType.Text = "";
+
+            cep.Text = "";
+            city.Text = "";
+            uf.Text = "";
+            district.Text = "";
+            street.Text = "";
+            number.Text = "";
+
+            observations.Text = "";
         }
 
         private async void RegisterValuesInFields(int id)
@@ -48,8 +71,17 @@ namespace ClinicVpInterface
             emergencyPhone.Text = $"{patient.Patient.PhoneEmergency}";
             weight.Text = $"{patient.Patient.Weight}";
             height.Text = $"{patient.Patient.Height}";
-            bornDate.Text = $"{patient.Patient.BornDate}";
+            bornDate.Text = $"{patient.Patient.BornDate.ToString().Split(' ')[0]}";
             bloodType.Text = $"{SetValueBloodType(patient.Patient.BloodType)}";
+
+            cep.Text = $"{patient.Address.Cep}";
+            city.Text = $"{patient.Address.City}";
+            uf.Text = $"{patient.Address.UfAddress}";
+            district.Text = $"{patient.Address.District}";
+            street.Text = $"{patient.Address.Street}";
+            number.Text = $"{patient.Address.Number}";
+
+            observations.Text = $"{patient.Patient.Notes}";
         }
 
         protected void ChangeVisibilityFieldset(object sender, EventArgs e)
@@ -58,9 +90,30 @@ namespace ClinicVpInterface
 
             switch (panelButton.ID)
             {
-                case "showCivilState": panelCivilState.Visible = !panelCivilState.Visible; break;
-                case "showGenders": panelGenders.Visible = !panelGenders.Visible; break;
-                case "showBloodType": panelBloodType.Visible = !panelBloodType.Visible; break;
+                case "showCivilState":
+                    {
+                        panelCivilState.Visible = !panelCivilState.Visible;
+
+                        panelGenders.Visible = false;
+                        panelBloodType.Visible = false;
+                        break;
+                    }
+                case "showGenders":
+                    {
+                        panelGenders.Visible = !panelGenders.Visible;
+
+                        panelCivilState.Visible = false;
+                        panelBloodType.Visible = false;
+                        break;
+                    }
+                case "showBloodType":
+                    {
+                        panelBloodType.Visible = !panelBloodType.Visible;
+
+                        panelCivilState.Visible = false;
+                        panelGenders.Visible = false;
+                        break;
+                    }
                 default: return;
 
             }
@@ -94,31 +147,16 @@ namespace ClinicVpInterface
             panelBloodType.Visible = false;
         }
 
-        protected async void GetAddressByCep(object sender, EventArgs e)
-        {
-            if (cep.Text.Length == 8)
-            {
-                var address = await _servicesCep.GetAddressByCep(cep.Text);
 
-                city.Text = address.Localidade;
-                uf.Text = address.Uf;
-                district.Text = address.Bairro;
-                street.Text = address.Logradouro;
-
-                return;
-            }
-
-            cep.Text = "CEP inválido!";
-        }
-
-        protected async void RegisterPatient(object sender, EventArgs e)
+        //Métodos para requisições HTTP
+        private async Task<PatientWriteDto> GetPatientWriteModel()
         {
             var valideDatas = await ValideFieldsFormPatient();
 
             if (!valideDatas.status)
             {
                 errorMessage.Text = valideDatas.message;
-                return;
+                return null;
             }
 
             var ufs = await _serviceUf.GetUfs();
@@ -159,19 +197,58 @@ namespace ClinicVpInterface
                 weightPatient = weightConvert;
             }
 
-            var patient = new PatientWriteBase(name.Text, cpf.Text, email.Text == "" ? null : email.Text, phone.Text, null, profession.Text == "" ? null : profession.Text, gender.Text == "Masculino" ? "MALE" : "FEMALE",
+            var cpfFormated = cpf.Text.Replace(".", "");
+            cpfFormated = cpfFormated.Replace("-", "");
+            cpfFormated.Trim();
+
+            var phoneFormated = phone.Text.Replace("(", "");
+            phoneFormated = phoneFormated.Replace(")", "");
+            phoneFormated = phoneFormated.Replace("-", "");
+            phoneFormated = phoneFormated.Replace(" ", "");
+
+            var emergencyPhoneFormated = emergencyPhone.Text.Replace("(", "");
+            emergencyPhoneFormated = emergencyPhoneFormated.Replace(")", "");
+            emergencyPhoneFormated = emergencyPhoneFormated.Replace("-", "");
+            emergencyPhoneFormated = emergencyPhoneFormated.Replace(" ", "");
+
+            var patient = new PatientWriteBase(name.Text, cpfFormated, email.Text == "" ? null : email.Text, phoneFormated, null, profession.Text == "" ? null : profession.Text, gender.Text == "Masculino" ? "MALE" : "FEMALE",
                 GetValueCivilState(civilState.Text), GetValueBloodType(bloodType.Text) == "" ? null : GetValueBloodType(bloodType.Text), weightPatient, heightPatient, bornDate.Text,
-                emergencyPhone.Text == "" ? null : emergencyPhone.Text, observations.Text == "" ? null : observations.Text);
+                emergencyPhoneFormated == "" ? null : emergencyPhoneFormated, observations.Text == "" ? null : observations.Text);
 
             var address = new AddressPatient(idUf, city.Text, district.Text, street.Text, number.Text, cep.Text);
 
-            var newPatient = new PatientWriteDto(patient, address);
+            return new PatientWriteDto(patient, address);
+        }
+
+        protected async void ChoiceFunctionButtonSubmit(object sender, EventArgs e)
+        {
+            if (Request.QueryString["id"] != null)
+            {
+                UpdatePatient();
+            }
+            else
+            {
+                RegisterPatient();
+            }
+        }
+
+        private async Task<(PatientResponseDto, HttpStatusCode)> GetPatientId(int id)
+        {
+            return await _servicePatient.GetPatientId(id);
+        }
+
+        private async void RegisterPatient()
+        {
+            var newPatient = await GetPatientWriteModel();
+
+            if (newPatient == null)
+            {
+                return;
+            }
 
             var (response, statusCode) = await _servicePatient.PostPatient(newPatient);
 
             blackContainer.Visible = true;
-
-            messageResult.Text = $"{statusCode}";
 
             if (statusCode != HttpStatusCode.OK)
             {
@@ -185,9 +262,73 @@ namespace ClinicVpInterface
             }
         }
 
+        private async void UpdatePatient()
+        {
+            var updatePatient = await GetPatientWriteModel();
+
+            if (updatePatient == null)
+            {
+                return;
+            }
+
+            int patientId = Convert.ToInt32(Request.QueryString["id"]);
+
+            var (response, statusCode) = await _servicePatient.UpdatePatient(updatePatient, patientId);
+
+            blackContainer.Visible = true;
+
+            if (statusCode != HttpStatusCode.OK)
+            {
+                messageResult.Text = "Ocorreu um erro ao tentar atualizar este paciente!";
+                finish.Text = "Tentar novamente";
+            }
+            else
+            {
+                messageResult.Text = "Paciente atualizado!";
+                finish.Text = "Concluir";
+            }
+        }
+
+        protected async void GetAddressByCep(object sender, EventArgs e)
+        {
+            var cepFormated = cep.Text.Replace("-", "");
+
+            if (cepFormated.Length == 8)
+            {
+                var (address, statusCode) = await _servicesCep.GetAddressByCep(cep.Text);
+
+                city.Text = address.Localidade;
+                uf.Text = address.Uf;
+                district.Text = address.Bairro;
+                street.Text = address.Logradouro;
+
+                if (address.Localidade == null)
+                {
+                    cep.Text = "";
+                    errorMessage.Text = "CEP não encontrado!";
+                    return;
+                }
+
+                return;
+            }
+        }
+
+
+        //Métodos de interação antes/depois de requisições HTTP
+        private void RedirectPageForListPatient()
+        {
+            CleanFields();
+            Response.Redirect("PatientList.aspx", true);
+        }
+
         protected void CloseModalResponse(object sender, EventArgs e)
         {
             blackContainer.Visible = false;
+
+            if (finish.Text == "Concluir")
+            {
+                RedirectPageForListPatient();
+            }
         }
 
         private async Task<(string message, bool status)> ValideFieldsFormPatient()
@@ -234,6 +375,8 @@ namespace ClinicVpInterface
             return (message, status);
         }
 
+
+        //Métodos de tradução de dados do BANCO <--> INTEFACE
         private string GetValueCivilState(string state)
         {
             switch (state)
@@ -265,6 +408,12 @@ namespace ClinicVpInterface
 
         private string SetValueBloodType(string type)
         {
+
+            if (type == null)
+            {
+                return "";
+            }
+
             switch (type.ToLower())
             {
                 case "a_positive": return "A+";

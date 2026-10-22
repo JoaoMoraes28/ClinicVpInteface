@@ -1,9 +1,23 @@
-﻿<%@ Page Title="Home Page" Language="C#" Async="true" MasterPageFile="~/Site.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="PatientForm.aspx.cs" Inherits="ClinicVpInterface.PatientForm" %>
+﻿<%@ Page Title="Formulário de paciente" Language="C#" Async="true" MasterPageFile="~/Site.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="PatientForm.aspx.cs" Inherits="ClinicVpInterface.PatientForm" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
+    <%--Scripts para aplicar máscaras do CPF, CEP e telefones--%>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+    <script>
+$(document).ready(function () {
+    $('#cpf').mask('000.000.000-00');
+    $('#phone').mask('(00) 00000-0000');
+    $('#emergencyPhone').mask('(00) 00000-0000');
+    $('#cep').mask('00000-000');
+})
+</script>
+
     <main id="mainContainer" runat="server">
 
+        <%--Modal de resultado de registro ou atualização de paciente--%>
         <asp:UpdatePanel runat="server">
             <ContentTemplate>
                 <div id="blackContainer" runat="server" visible="false" class="container-message-result">
@@ -15,9 +29,16 @@
             </ContentTemplate>
         </asp:UpdatePanel>
 
-        <header>
+        <header style="position: relative; width: 100%; display: flex; justify-content: center;">
             <img src="/Photo_patient.png" alt="Alternate Text" />
+            <a href="PatientList.aspx"
+                style="position: absolute; top: 0; left: 0; display: flex; justify-content: center; align-items: center; width: 50px; height: 50px; border-radius: 100%; background-color: var(--blue-primary)">
+                <i aria-label="Volta a página de lista de pacientes."
+                    style="color: var(--bg-primary);" class="fa-solid fa-arrow-left fa-lg"></i>
+            </a>
         </header>
+
+        <%--Dados do paciente--%>
         <section>
             <div class="container-input">
                 <asp:TextBox ID="name" CssClass="input-patient" runat="server" placeHolder="Douglas Naconesky" />
@@ -26,9 +47,10 @@
                     <asp:Label CssClass="text-danger" Text="*" runat="server" />
                 </div>
             </div>
+            
             <div class="container-inputs">
                 <div class="container-input">
-                    <asp:TextBox ID="cpf" CssClass="input-patient cpf-mask" runat="server" placeHolder="000.000.000-00" TextMode="Number" />
+                    <asp:TextBox ID="cpf" ClientIDMode="Static" CssClass="input-patient" runat="server" placeHolder="000.000.000-00" />
                     <div class="container-label">
                         <asp:Label Text="CPF" runat="server" />
                         <asp:Label CssClass="text-danger" Text="*" runat="server" />
@@ -56,6 +78,7 @@
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
+            
             <div class="container-inputs">
                 <div class="container-input">
                     <asp:TextBox ID="profession" CssClass="input-patient" runat="server" placeHolder="Gerente, Diarista, Cabelereiro..." />
@@ -82,6 +105,7 @@
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
+            
             <div class="container-input">
                 <asp:TextBox ID="email" CssClass="input-patient" runat="server" placeHolder="example@email.com" TextMode="Email" />
                 <div class="container-label">
@@ -89,21 +113,23 @@
                     <asp:Label CssClass="text-danger" Text="*" runat="server" />
                 </div>
             </div>
+            
             <div class="container-inputs">
                 <div class="container-input">
-                    <asp:TextBox ID="phone" CssClass="input-patient" runat="server" placeHolder="(11) 91234-5678" TextMode="Number" />
+                    <asp:TextBox ID="phone" ClientIDMode="Static" CssClass="input-patient" runat="server" placeHolder="(11) 91234-5678" />
                     <div class="container-label">
                         <asp:Label Text="Telefone" runat="server" />
                         <asp:Label CssClass="text-danger" Text="*" runat="server" />
                     </div>
                 </div>
                 <div class="container-input">
-                    <asp:TextBox ID="emergencyPhone" CssClass="input-patient" runat="server" placeHolder="(11) 91234-5678" TextMode="Number" />
+                    <asp:TextBox ID="emergencyPhone" ClientIDMode="Static" CssClass="input-patient" runat="server" placeHolder="(11) 91234-5678" />
                     <div class="container-label">
                         <asp:Label Text="Telefone de emergência" runat="server" />
                     </div>
                 </div>
             </div>
+            
             <div class="container-inputs">
                 <div class="container-input">
                     <asp:TextBox ID="weight" CssClass="input-patient" runat="server" placeHolder="91.5 (Kg)" TextMode="Number" />
@@ -118,11 +144,13 @@
                     </div>
                 </div>
             </div>
+            
             <div class="container-inputs">
                 <div class="container-input">
                     <asp:TextBox ID="bornDate" CssClass="input-patient" runat="server" placeHolder="30/09/1998" TextMode="Date" />
                     <div class="container-label">
                         <asp:Label Text="Data de nascimento" runat="server" />
+                        <asp:Label CssClass="text-danger" Text="*" runat="server" />
                     </div>
                 </div>
                 <asp:UpdatePanel runat="server">
@@ -151,16 +179,18 @@
             </div>
         </section>
 
+        <%--Dados de endereço do paciente--%>
         <section>
             <h2>Endereço <span>(Digite o CEP primeiro para a busca de dados)</span></h2>
 
             <div class="container-input">
-                <asp:TextBox AutoPostBack="true" OnTextChanged="GetAddressByCep" ID="cep" CssClass="input-patient" runat="server" placeHolder="00000-000" />
+                <asp:TextBox AutoPostBack="true" ClientIDMode="Static" OnTextChanged="GetAddressByCep" ID="cep" CssClass="input-patient" runat="server" placeHolder="00000-000" />
                 <div class="container-label">
                     <asp:Label Text="CEP" runat="server" />
                     <asp:Label CssClass="text-danger" Text="*" runat="server" />
                 </div>
             </div>
+
             <div class="container-inputs">
                 <div class="container-input">
                     <asp:TextBox ID="city" CssClass="input-patient" runat="server" placeHolder="Osasco" ReadOnly="true" />
@@ -177,6 +207,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="container-input">
                 <asp:TextBox ID="district" CssClass="input-patient" runat="server" placeHolder="Bairro das Rosas" ReadOnly="true" />
                 <div class="container-label">
@@ -184,6 +215,7 @@
                     <asp:Label CssClass="text-danger" Text="*" runat="server" />
                 </div>
             </div>
+
             <div class="container-inputs">
                 <div class="container-input">
                     <asp:TextBox ID="street" CssClass="input-patient" runat="server" placeHolder="Av. dos Autonomistas" ReadOnly="true" />
@@ -199,7 +231,8 @@
                         <asp:Label CssClass="text-danger" Text="*" runat="server" />
                     </div>
                 </div>
-            </div>
+            </div> 
+           
             <div class="container-input" style="height: 240px;">
                 <asp:TextBox ID="observations" CssClass="text-patient" runat="server" TextMode="MultiLine" placeHolder="Descreva brevemente caso o paciente tenha alguma alergia, doença crônica ou faz uso de remédios..." />
                 <div class="container-label">
@@ -210,8 +243,9 @@
 
         <div style="width: 100%; display: flex; flex-direction: column; justify-content: space-between; align-content: center; height: 120px;">
             <asp:Label CssClass="text-danger text-center w-100" ID="errorMessage" Text="" runat="server" />
-            <asp:Button ID="submitButton" OnClick="RegisterPatient" CssClass="btn btn-primary button-register" Text="Cadastrar" runat="server" />
+            <asp:Button ID="submitButton" OnClick="ChoiceFunctionButtonSubmit" CssClass="btn btn-primary button-register" Text="Cadastrar" runat="server" />
         </div>
+    
     </main>
 
 </asp:Content>

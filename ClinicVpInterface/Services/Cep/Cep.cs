@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -9,19 +10,24 @@ namespace ClinicVpInterface.Services.Cep
 
         readonly private HttpClient http = new HttpClient();
 
-        public async Task<CepDto> GetAddressByCep(string cep)
+        public async Task<(CepDto, HttpStatusCode)> GetAddressByCep(string cep)
         {
-            HttpResponseMessage response = await http.GetAsync($"https://viacep.com.br/ws/{cep}/json/");
+            try
+            {
+                HttpResponseMessage response = await http.GetAsync($"https://viacep.com.br/ws/{cep}/json/");
 
-            response.EnsureSuccessStatusCode();
+                var jsonResponse = await response.Content.ReadAsStringAsync();
 
-            var jsonResponse = await response.Content.ReadAsStringAsync();
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                CepDto address = JsonSerializer.Deserialize<CepDto>(jsonResponse, options);
 
-            CepDto address = JsonSerializer.Deserialize<CepDto>(jsonResponse, options);
-
-            return address;
+                return (address, response.StatusCode);
+            }
+            catch
+            {
+                return (null, HttpStatusCode.NotFound);
+            }
         }
 
     }
