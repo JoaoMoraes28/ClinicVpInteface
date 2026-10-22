@@ -24,15 +24,6 @@ namespace ClinicVpInterface
         protected global::System.Web.UI.UpdatePanel updMain;
 
         /// <summary>
-        /// Controle rptPatients.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptPatients;
-
-        /// <summary>
         /// Controle modalOverlay.
         /// </summary>
         /// <remarks>
@@ -49,6 +40,15 @@ namespace ClinicVpInterface
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnClose;
+
+        /// <summary>
+        /// Controle imgPatientPhoto.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgPatientPhoto;
 
         /// <summary>
         /// Controle litName.
@@ -168,6 +168,15 @@ namespace ClinicVpInterface
         protected global::System.Web.UI.WebControls.Literal litBloodType;
 
         /// <summary>
+        /// Controle litCreatedAt.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litCreatedAt;
+
+        /// <summary>
         /// Controle litAddress.
         /// </summary>
         /// <remarks>
@@ -202,5 +211,14 @@ namespace ClinicVpInterface
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDelete;
+
+        /// <summary>
+        /// Controle rptPatients.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptPatients;
     }
 }

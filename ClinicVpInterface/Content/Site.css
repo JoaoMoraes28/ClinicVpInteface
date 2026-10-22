@@ -354,31 +354,61 @@ a:hover {
     color:#6FAAE2
 }
 
+.card-link-wrapper {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+}
+
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
 }
-
+.teste{
+    background-color: black;
+    height: 20%;
+    width: 20%
+}
 .modal-card {
-    background: #ffffff;
-    border-radius: 12px;
+    display: flex;
+    background-color: red;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
     padding: 24px;
     max-width: 600px;
     width: 90%;
     max-height: 90vh;
+    gap: 16px; 
     overflow-y: auto;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
+.title-card {
+    display:flex;
+    width: 100%;
+    background-color:aqua;
+    flex-direction:column;
+    justify-content:center;
+    align-content: center;
+    align-items: center;
+}
+
+    .modal-card img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
 
 .close-btn {
     text-decoration: none;

@@ -1,6 +1,6 @@
 ﻿using ClinicVpInterface.Services.Patient;
 using System;
-using System.Globalization;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.UI;
 
@@ -29,7 +29,7 @@ namespace ClinicVpInterface
         {
             var (response, statusCode) = await _servicePatient.GetPatientId(id);
 
-            if (statusCode == System.Net.HttpStatusCode.OK && response?.Patient != null)
+            if (statusCode == HttpStatusCode.OK && response?.Patient != null)
             {
                 var p = response.Patient;
                 var a = response.Address;
@@ -46,10 +46,10 @@ namespace ClinicVpInterface
                 litWeight.Text = p.Weight.HasValue ? $"{p.Weight.Value} Kg" : "N/A";
                 litHeight.Text = p.Height.HasValue ? $"{p.Height.Value} cm" : "N/A";
 
-                if (DateTime.TryParse(p.BornDate, out DateTime bornDate))
+                if (p.BornDate != DateTime.MinValue)
                 {
-                    litBornDate.Text = bornDate.ToString("dd/MM/yyyy");
-                    litAge.Text = $"{CalculateAge(bornDate)} anos";
+                    litBornDate.Text = p.BornDate.ToString("dd/MM/yyyy");
+                    litAge.Text = $"{CalculateAge(p.BornDate)} anos";
                 }
                 else
                 {
@@ -68,6 +68,8 @@ namespace ClinicVpInterface
                 {
                     litAddress.Text = "Endereço não informado";
                 }
+
+                litObservations.Text = !string.IsNullOrWhiteSpace(p.Observations) ? p.Observations : "Sem observações cadastradas.";
             }
             else
             {
@@ -90,10 +92,18 @@ namespace ClinicVpInterface
 
         protected async void BtnDelete_Click(object sender, EventArgs e)
         {
-            if (Request.QueryString["id"] != null && int.TryParse(Request.QueryString["id"], out int id))
+            if (Request.QueryString["id"] != null && int.TryParse(Request.QueryString["id"], out int patientId))
             {
-              
-                Response.Redirect("/PatientList.aspx");
+                HttpStatusCode statusCode = await _servicePatient.DeletePatient(patientId);
+
+                if (statusCode == HttpStatusCode.OK || statusCode == HttpStatusCode.NoContent)
+                {
+                    Response.Redirect("/PatientList.aspx");
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(), "alert", "alert('Erro ao excluir o paciente.');", true);
+                }
             }
         }
 
