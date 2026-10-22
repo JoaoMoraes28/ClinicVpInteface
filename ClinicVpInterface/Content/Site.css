@@ -319,7 +319,72 @@ a:hover {
         text-decoration: none;
     }
 
+.conteiner-principal{
+    display:flex;
+    flex-direction:column;
+    height: 100%;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0px;
 
+}
+.conteiner-principal img {
+    height: 100px;
+    width: 100px;
+}
+.row-data-container{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    padding: 8px 6px;
+    gap: 12px;
+    background-color: #D3DDE6
+}
+.row-data-container strong {
+    color: #6FAAE2
+}
+.top-card {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+
+}
+
+.top-card h3{
+    color:#6FAAE2
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
 
 
 @media screen and (min-width: 768px) {

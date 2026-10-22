@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PatientCard.ascx.cs" Inherits="ClinicVpInterface.Components.PatientCard" %>
 
-<a href="/PatientForm.aspx?id=<%# PatientId %>">
+<a href="/PatientData.aspx?id=<%# PatientId %>" style="text-decoration: none; color: inherit;">
     <article class="patient-card">
         <div class="containter-patient-photo">
             <img runat="server" id="photo" class="photo-profile" src="/Photo_patient.png" alt="Foto de perfil do paciente." />
