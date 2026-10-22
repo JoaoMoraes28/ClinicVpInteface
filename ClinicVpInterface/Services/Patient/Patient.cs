@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 
 namespace ClinicVpInterface.Services.Patient
 {
@@ -71,7 +72,13 @@ namespace ClinicVpInterface.Services.Patient
 
             return (patient, response.StatusCode);
         }
-
+      
+        public async Task<HttpStatusCode> DeletePatient(int id)
+        {
+            HttpResponseMessage response = await http.DeleteAsync($"{urlBase}/{id}");
+            return response.StatusCode;
+        }
+      
         public async Task<(PatientResponseDto, HttpStatusCode)> UpdatePatient(PatientWriteDto updatePatient, int id)
         {
             var json = JsonSerializer.Serialize(updatePatient);

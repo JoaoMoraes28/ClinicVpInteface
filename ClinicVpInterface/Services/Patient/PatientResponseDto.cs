@@ -16,6 +16,8 @@
         public string CivilState { get; set; }
         public string Gender { get; set; }
         public bool Active { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public string Observations { get; set; }
         public string Notes { get; set; }
     }
 
