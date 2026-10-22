@@ -99,6 +99,10 @@ namespace ClinicVpInterface
                 if (statusCode == HttpStatusCode.OK || statusCode == HttpStatusCode.NoContent)
                 {
                     modalOverlay.Visible = false;
+                    ViewState["SelectedPatientId"] = null;
+
+                    string script = "alert('Paciente inativado com sucesso!'); window.location.reload();";
+                    ScriptManager.RegisterStartupScript(this, GetType(), "successReload", script, true);
                 }
                 else
                 {
