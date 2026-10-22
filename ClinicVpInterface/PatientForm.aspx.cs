@@ -30,7 +30,6 @@ namespace ClinicVpInterface
             }
         }
 
-
         //Métodos que manipulam dados e interações do HTML
         private void CleanFields()
         {
@@ -146,7 +145,6 @@ namespace ClinicVpInterface
 
             panelBloodType.Visible = false;
         }
-
 
         //Métodos para requisições HTTP
         private async Task<PatientWriteDto> GetPatientWriteModel()

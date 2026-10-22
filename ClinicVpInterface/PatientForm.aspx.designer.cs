@@ -51,6 +51,24 @@ namespace ClinicVpInterface
         protected global::System.Web.UI.WebControls.Button finish;
 
         /// <summary>
+        /// Controle photoFile.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload photoFile;
+
+        /// <summary>
+        /// Controle profilePhoto.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage profilePhoto;
+
+        /// <summary>
         /// Controle name.
         /// </summary>
         /// <remarks>

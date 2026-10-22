@@ -1,4 +1,6 @@
-﻿namespace ClinicVpInterface.Services.Patient
+﻿using System;
+
+namespace ClinicVpInterface.Services.Patient
 {
     public class PatientResponseBase
     {
