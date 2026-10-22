@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ClinicVpInterface.Services.Patient
+﻿namespace ClinicVpInterface.Services.Patient
 {
     public class PatientResponseBase
     {
@@ -14,13 +12,13 @@ namespace ClinicVpInterface.Services.Patient
         public decimal? Weight { get; set; }
         public string BloodType { get; set; }
         public string Professional { get; set; }
-        public DateTime BornDate { get; set; }
+        public string BornDate { get; set; }
         public string CivilState { get; set; }
         public string Gender { get; set; }
         public bool Active { get; set; }
         public DateTime? CreatedAt { get; set; }
         public string Observations { get; set; }
-
+        public string Notes { get; set; }
     }
 
     public class PatientAddressResponseDto

@@ -35,9 +35,9 @@ namespace ClinicVpInterface.Services.Patient
         public async Task<(ResponseWriteModel response, HttpStatusCode statusCode)> PostPatient(PatientWriteDto patient)
         {
             var json = JsonSerializer.Serialize(patient);
-            var contet = new StringContent(json, encoding: Encoding.UTF8, "application/json");
+            var content = new StringContent(json, encoding: Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await http.PostAsync(urlBase, contet);
+            HttpResponseMessage response = await http.PostAsync(urlBase, content);
 
             if (response.StatusCode != HttpStatusCode.OK)
             {
@@ -72,10 +72,32 @@ namespace ClinicVpInterface.Services.Patient
 
             return (patient, response.StatusCode);
         }
+      
         public async Task<HttpStatusCode> DeletePatient(int id)
         {
             HttpResponseMessage response = await http.DeleteAsync($"{urlBase}/{id}");
             return response.StatusCode;
+        }
+      
+        public async Task<(PatientResponseDto, HttpStatusCode)> UpdatePatient(PatientWriteDto updatePatient, int id)
+        {
+            var json = JsonSerializer.Serialize(updatePatient);
+            var content = new StringContent(json, encoding: Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await http.PutAsync($"{urlBase}/{id}", content);
+
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                return (null, response.StatusCode);
+            }
+
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
+            var newPatient = JsonSerializer.Deserialize<PatientResponseDto>(jsonResponse, options);
+
+            return (newPatient, response.StatusCode);
         }
     }
 }
