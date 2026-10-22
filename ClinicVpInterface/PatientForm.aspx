@@ -15,6 +15,22 @@ $(document).ready(function () {
 })
 </script>
 
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const inputFile = document.getElementById("photoFile");
+
+    inputFile.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+
+        if (file) { 
+            let url = URL.createObjectURL(file);
+
+            document.getElementById("profilePhoto").src = url;
+        }
+    });
+});
+</script>
+
     <main id="mainContainer" runat="server">
 
         <%--Modal de resultado de registro ou atualização de paciente--%>
@@ -30,7 +46,10 @@ $(document).ready(function () {
         </asp:UpdatePanel>
 
         <header style="position: relative; width: 100%; display: flex; justify-content: center;">
-            <img src="/Photo_patient.png" alt="Alternate Text" />
+            <div class="container-profile-photo">
+                <asp:FileUpload ClientIDMode="Static" ID="photoFile" runat="server" Style="position: absolute; width: 100%; height: 100%; opacity: 0; border-radius: 100%;"></asp:FileUpload>
+                <img ClientIDMode="Static" runat="server" id="profilePhoto" class="profile-img" src="/Photo_patient.png" alt="Alternate Text" />
+            </div>
             <a href="PatientList.aspx"
                 style="position: absolute; top: 0; left: 0; display: flex; justify-content: center; align-items: center; width: 50px; height: 50px; border-radius: 100%; background-color: var(--blue-primary)">
                 <i aria-label="Volta a página de lista de pacientes."

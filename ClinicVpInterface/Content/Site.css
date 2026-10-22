@@ -76,6 +76,26 @@ h2 {
         font-size: 16px;
     }
 
+.container-profile-photo {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    border: solid;
+    border-color: var(--blue-primary);
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 100%;
+}
+
 .container-inputs {
     display: flex;
     flex-direction: column;
