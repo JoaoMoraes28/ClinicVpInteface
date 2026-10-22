@@ -75,7 +75,9 @@ namespace ClinicVpInterface.Services.Patient
       
         public async Task<HttpStatusCode> DeletePatient(int id)
         {
-            HttpResponseMessage response = await http.DeleteAsync($"{urlBase}/{id}");
+            var request = new HttpRequestMessage(new HttpMethod("PATCH"), $"{urlBase}/{id}");
+
+            HttpResponseMessage response = await http.SendAsync(request);
             return response.StatusCode;
         }
       
