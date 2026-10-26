@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <img ClientIDMode="Static" runat="server" id="profilePhoto" class="profile-img" src="/Photo_patient.png" alt="Alternate Text" />
             </div>
             <a href="PatientList.aspx"
-                style="position: absolute; top: 0; left: 0; display: flex; justify-content: center; align-items: center; width: 50px; height: 50px; border-radius: 100%; background-color: var(--blue-primary)">
+                class="set-back">
                 <i aria-label="Volta a página de lista de pacientes."
                     style="color: var(--bg-primary);" class="fa-solid fa-arrow-left fa-lg"></i>
             </a>
