@@ -1,5 +1,6 @@
 ﻿using ClinicVpInterface.Services.Patient;
 using System;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.UI;
@@ -13,13 +14,43 @@ namespace ClinicVpInterface
 
         protected async void Page_Load(object sender, EventArgs e)
         {
-
-            var (patients, statusCode) = await _servicePatient.GetPatientsPreview();
-
-            rptPatients.DataSource = patients;
-            rptPatients.DataBind();
+            if (!IsPostBack)
+            {
+                await LoadPatientsAsync();
+            }
         }
 
+        protected async void BtnSearch_Click(object sender, EventArgs e)
+        {
+            string searchTerm = txtSearch.Value; 
+            await LoadPatientsAsync(searchTerm);
+        }
+        private async Task LoadPatientsAsync(string searchTerm = "")
+        {
+            var (patients, statusCode) = await _servicePatient.GetPatientsPreview();
+
+            if (statusCode == HttpStatusCode.OK && patients != null)
+            {
+                if (!string.IsNullOrWhiteSpace(searchTerm))
+                {
+
+                    string cleanSearchTerm = new string(searchTerm.Where(char.IsDigit).ToArray());
+
+
+                    string searchLower = searchTerm.Trim().ToLower();
+
+                    patients = patients.Where(p =>
+                        (!string.IsNullOrEmpty(p.Name) && p.Name.ToLower().Contains(searchLower)) 
+                        //|| (!string.IsNullOrEmpty(p.Cpf) && p.Cpf.Contains(cleanSearchTerm))
+                    ).ToList();
+                }
+
+                test.InnerText = searchTerm;
+
+                rptPatients.DataSource = patients;
+                rptPatients.DataBind();
+            }
+        }
 
         protected void RptPatients_ItemCommand(object source, RepeaterCommandEventArgs e)
         {

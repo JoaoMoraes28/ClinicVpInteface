@@ -213,6 +213,33 @@ namespace ClinicVpInterface
         protected global::System.Web.UI.WebControls.Button btnDelete;
 
         /// <summary>
+        /// Controle test.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl test;
+
+        /// <summary>
+        /// Controle btnSearch.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnSearch;
+
+        /// <summary>
+        /// Controle txtSearch.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtSearch;
+
+        /// <summary>
         /// Controle rptPatients.
         /// </summary>
         /// <remarks>

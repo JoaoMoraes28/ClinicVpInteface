@@ -93,14 +93,14 @@
 
             <%-- Lista Principal --%>
             <div class="container-general">
-                <h3>Pacientes Cadastrados</h3>
+                <h3 id="test" runat="server">Pacientes Cadastrados</h3>
 
                 <div class="container-header">
                     <div class="search-container">
-                        <button type="button" class="btn-search">
+                        <asp:LinkButton ID="btnSearch" runat="server" CssClass="btn-search" OnClick="BtnSearch_Click" CausesValidation="false">
                             <i class="fa fa-search"></i>
-                        </button>
-                        <input type="text" placeholder="Busque um paciente por nome ou CPF" />
+                        </asp:LinkButton>
+                        <input type="text" id="txtSearch" runat="server" placeholder="Busque um paciente por nome ou CPF" />
                     </div>
 
                     <div class="add-patient-container">
@@ -109,7 +109,7 @@
                         <span class="add-patient-text">+</span>
                     </div>
                 </div>
-                
+
 
                 <div class="container-body">
                     <div class="patient-list-container">
