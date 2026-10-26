@@ -217,6 +217,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Cep\Cep.cs" />
     <Compile Include="Services\Cep\CepDto.cs" />
+    <Compile Include="Services\Midia\Midia.cs" />
+    <Compile Include="Services\Midia\MidiaResponseDto.cs" />
     <Compile Include="Services\Patient\Patient.cs" />
     <Compile Include="Services\Patient\PatientResponseDto.cs" />
     <Compile Include="Services\Patient\PatientWriteDto.cs" />

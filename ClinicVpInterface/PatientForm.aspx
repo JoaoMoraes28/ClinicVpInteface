@@ -26,12 +26,16 @@ document.addEventListener("DOMContentLoaded", function () {
             let url = URL.createObjectURL(file);
 
             document.getElementById("profilePhoto").src = url;
+
+            document.getElementById("fileImg").value = file;
         }
     });
 });
-</script>
+    </script>
 
     <main id="mainContainer" runat="server">
+
+        <asp:HiddenField ClientIDMode="Static" ID="fileImg" runat="server" />
 
         <%--Modal de resultado de registro ou atualização de paciente--%>
         <asp:UpdatePanel runat="server">
@@ -262,7 +266,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         <div style="width: 100%; display: flex; flex-direction: column; justify-content: space-between; align-content: center; height: 120px;">
             <asp:Label CssClass="text-danger text-center w-100" ID="errorMessage" Text="" runat="server" />
-            <asp:Button ID="submitButton" OnClick="ChoiceFunctionButtonSubmit" CssClass="btn btn-primary button-register" Text="Cadastrar" runat="server" />
+            <asp:Button ClientIDMode="Static" ID="submitButton" OnClick="ChoiceFunctionButtonSubmit" CssClass="btn btn-primary button-register" Text="Cadastrar" runat="server" />
         </div>
     
     </main>
