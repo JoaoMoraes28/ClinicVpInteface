@@ -1,4 +1,5 @@
 ﻿using ClinicVpInterface.Services.Cep;
+using ClinicVpInterface.Services.Midia;
 using ClinicVpInterface.Services.Patient;
 using ClinicVpInterface.Services.Uf;
 using System;
@@ -13,6 +14,7 @@ namespace ClinicVpInterface
         readonly private Cep _servicesCep = new Cep();
         readonly private Uf _serviceUf = new Uf();
         readonly private Patient _servicePatient = new Patient();
+        readonly private Midia _serviceMidia = new Midia();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -209,11 +211,17 @@ namespace ClinicVpInterface
             emergencyPhoneFormated = emergencyPhoneFormated.Replace("-", "");
             emergencyPhoneFormated = emergencyPhoneFormated.Replace(" ", "");
 
-            var patient = new PatientWriteBase(name.Text, cpfFormated, email.Text == "" ? null : email.Text, phoneFormated, null, profession.Text == "" ? null : profession.Text, gender.Text == "Masculino" ? "MALE" : "FEMALE",
+            var cepFormated = cep.Text.Replace("-", "");
+
+            var guid = Guid.NewGuid();
+
+            var photo = await _serviceMidia.GetUrlImgProfile(photoFile.FileContent, guid.ToString());
+
+            var patient = new PatientWriteBase(name.Text, cpfFormated, email.Text == "" ? null : email.Text, phoneFormated, photo, profession.Text == "" ? null : profession.Text, gender.Text == "Masculino" ? "MALE" : "FEMALE",
                 GetValueCivilState(civilState.Text), GetValueBloodType(bloodType.Text) == "" ? null : GetValueBloodType(bloodType.Text), weightPatient, heightPatient, bornDate.Text,
                 emergencyPhoneFormated == "" ? null : emergencyPhoneFormated, observations.Text == "" ? null : observations.Text);
 
-            var address = new AddressPatient(idUf, city.Text, district.Text, street.Text, number.Text, cep.Text);
+            var address = new AddressPatient(idUf, city.Text, district.Text, street.Text, number.Text, cepFormated);
 
             return new PatientWriteDto(patient, address);
         }

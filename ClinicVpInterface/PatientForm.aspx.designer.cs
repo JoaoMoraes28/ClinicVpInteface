@@ -24,6 +24,15 @@ namespace ClinicVpInterface
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mainContainer;
 
         /// <summary>
+        /// Controle fileImg.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField fileImg;
+
+        /// <summary>
         /// Controle blackContainer.
         /// </summary>
         /// <remarks>
