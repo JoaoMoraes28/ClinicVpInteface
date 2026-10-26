@@ -20,8 +20,11 @@
                     <div class="title-card">
                         <asp:Image ID="imgPatientPhoto" runat="server" ImageUrl="/Photo_patient.png" AlternateText="Foto Paciente" />
 
-                        <h2>
-                            <asp:Literal ID="litName" runat="server" /></h2>
+                        <div class="title-content">
+                            <h2>
+                                <asp:Literal ID="litName" runat="server" />
+                            </h2>
+                        </div>
                     </div>
                     <div class="row-data-container">
                         <span><strong>CPF: </strong>
