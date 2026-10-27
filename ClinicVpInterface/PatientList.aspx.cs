@@ -18,15 +18,28 @@ namespace ClinicVpInterface
             {
                 await LoadPatientsAsync();
             }
+            else
+            {
+                await FilterPatients();
+            }
         }
 
         protected async void BtnSearch_Click(object sender, EventArgs e)
         {
-            string searchTerm = txtSearch.Value; 
-            await LoadPatientsAsync(searchTerm);
+
+            await FilterPatients();
         }
-        private async Task LoadPatientsAsync(string searchTerm = "")
+        private async Task LoadPatientsAsync()
         {
+            var (patients, statusCode) = await _servicePatient.GetPatientsPreview();
+
+            rptPatients.DataSource = patients;
+            rptPatients.DataBind();
+        }
+
+        private async Task FilterPatients()
+        {
+            string searchTerm = txtSearch.Value;
             var (patients, statusCode) = await _servicePatient.GetPatientsPreview();
 
             if (statusCode == HttpStatusCode.OK && patients != null)
@@ -36,22 +49,15 @@ namespace ClinicVpInterface
 
                     string cleanSearchTerm = new string(searchTerm.Where(char.IsDigit).ToArray());
 
-
                     string searchLower = searchTerm.Trim().ToLower();
 
-                    patients = patients.Where(p =>
-                        (!string.IsNullOrEmpty(p.Name) && p.Name.ToLower().Contains(searchLower)) 
-                        //|| (!string.IsNullOrEmpty(p.Cpf) && p.Cpf.Contains(cleanSearchTerm))
-                    ).ToList();
+                    patients = patients.Where(p => p.Cpf.Contains(searchTerm)).ToList();
                 }
-
-                test.InnerText = searchTerm;
-
-                rptPatients.DataSource = patients;
-                rptPatients.DataBind();
             }
-        }
 
+            rptPatients.DataSource = patients;
+            rptPatients.DataBind();
+        }
         protected void RptPatients_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "SelectPatient")
@@ -71,6 +77,8 @@ namespace ClinicVpInterface
             {
                 var p = response.Patient;
                 var a = response.Address;
+
+                imgPatientPhoto.ImageUrl = string.IsNullOrWhiteSpace(p.Photo) ? "/Photo_patient.png" : p.Photo;
 
                 litName.Text = p.Name ?? "N/A";
                 litCpf.Text = FormatCpf(p.Cpf);

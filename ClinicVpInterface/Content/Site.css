@@ -327,6 +327,7 @@ a:hover {
     font-weight: 600;
 }
 
+
 .add-patient-container {
     display: flex;
     justify-content: center;
@@ -345,13 +346,6 @@ a:hover {
         color: #ffffff;
         font-weight: bold;
         font-size: 16px;
-    }
-
-    .add-patient-container a {
-        color: #ffffff;
-        font-weight: bold;
-        font-size: 16px;
-        text-decoration: none;
     }
 
 .conteiner-principal {

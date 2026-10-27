@@ -13,14 +13,21 @@ namespace ClinicVpInterface.Components
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            name.InnerText = Name;
+
+
+        }
+
+        protected override void OnPreRender(EventArgs e)
+        {
+            base.OnPreRender(e);
+
+            // Garante que roda após as propriedades estarem populadas pelo Repeater
+            name.InnerText = Name ?? "N/A";
             cpf.InnerText = $"CPF: {Cpf}";
             phone.InnerText = $"Telefone: {Phone}";
 
-            var photoProfile = Photo == "" || Photo == null ? "/Photo_patient.png" : Photo;
-
+            var photoProfile = string.IsNullOrEmpty(Photo) ? "/Photo_patient.png" : Photo;
             photo.Src = photoProfile;
-
         }
     }
 }

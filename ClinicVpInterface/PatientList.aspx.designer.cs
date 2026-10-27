@@ -15,15 +15,6 @@ namespace ClinicVpInterface
     {
 
         /// <summary>
-        /// Controle updMain.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updMain;
-
-        /// <summary>
         /// Controle modalOverlay.
         /// </summary>
         /// <remarks>
@@ -213,15 +204,6 @@ namespace ClinicVpInterface
         protected global::System.Web.UI.WebControls.Button btnDelete;
 
         /// <summary>
-        /// Controle test.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl test;
-
-        /// <summary>
         /// Controle btnSearch.
         /// </summary>
         /// <remarks>
@@ -238,6 +220,15 @@ namespace ClinicVpInterface
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtSearch;
+
+        /// <summary>
+        /// Controle updMain.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updMain;
 
         /// <summary>
         /// Controle rptPatients.
