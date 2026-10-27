@@ -4,11 +4,11 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-    <asp:UpdatePanel ID="updMain" runat="server">
+    <asp:UpdatePanel ID="updMain" runat="server" Style="padding: 8px 32px;">
         <ContentTemplate>
 
             <%-- Modal Overlay --%>
-            <div id="modalOverlay" runat="server" class="modal-overlay" visible="true">
+            <div id="modalOverlay" runat="server" class="modal-overlay" visible="false">
                 <div class="modal-card">
 
                     <div class="top-card">
@@ -18,7 +18,9 @@
                         </asp:LinkButton>
                     </div>
                     <div class="title-card">
-                        <asp:Image ID="imgPatientPhoto" runat="server" ImageUrl="/Photo_patient.png" AlternateText="Foto Paciente" />
+                        <div style="border: solid; border-width: 2px; border-color: var(--blue-primary); border-radius: 100%;">
+                            <asp:Image ID="imgPatientPhoto" runat="server" ImageUrl="/Photo_patient.png" AlternateText="Foto Paciente" />
+                        </div>
 
                         <div class="title-content">
                             <h2>

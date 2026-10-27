@@ -216,7 +216,7 @@ input[type=radio] {
 .container-header {
     display: flex;
     flex-direction: column;
-    align-items:start;
+    align-items: start;
     width: 100%;
     gap: 12px;
 }
@@ -229,9 +229,8 @@ input[type=radio] {
     border: 1px solid var(--blue-primary);
     border-radius: 5px;
     overflow: hidden;
-    height: 40px;
+    height: 48px;
 }
-
 
     .search-container input {
         border: none;
@@ -292,11 +291,16 @@ a:hover {
 }
 
 .photo-profile {
-    width: auto;
-    height: 45%;
+    width: 70%;
+    aspect-ratio: 4 / 4;
+    object-fit: cover;
+    border-radius: 100%;
+    border: solid;
+    border-width: 2px;
+    border-color: var(--blue-primary);
 }
 
-.containter-patient-photo {
+.container-patient-photo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -327,7 +331,8 @@ a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 38px;
+    width: 100%;
+    height: 48px;
     background: linear-gradient(to left, #6FAAE2, #154C80);
     border-radius: 30px;
     padding: 0px 12px;
@@ -335,10 +340,6 @@ a:hover {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
-
-    .add-patient-container:hover {
-        height: 40px;
-    }
 
     .add-patient-container span {
         color: #ffffff;
@@ -353,41 +354,47 @@ a:hover {
         text-decoration: none;
     }
 
-.conteiner-principal{
-    display:flex;
-    flex-direction:column;
+.conteiner-principal {
+    display: flex;
+    flex-direction: column;
     height: 100%;
     align-items: center;
     gap: 12px;
     padding: 12px 0px;
+}
 
-}
-.conteiner-principal img {
-    height: 100px;
-    width: 100px;
-}
+    .conteiner-principal img {
+        height: 100px;
+        width: 100px;
+    }
+
 .row-data-container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 80%;
-    padding: 8px 6px;
-    gap: 12px;
-    background-color: #D3DDE6
+    width: 100%;
+    padding: 0px 18px;
+    gap: 16px;
 }
-.row-data-container strong {
-    color: #6FAAE2
-}
+
+    .row-data-container span {
+        background-color: #D3DDE6;
+        padding: 12px 0px;
+    }
+
+    .row-data-container strong {
+        color: #6FAAE2
+    }
+
 .top-card {
     display: flex;
     width: 80%;
     justify-content: space-between;
-
 }
 
-.top-card h3{
-    color:#6FAAE2
-}
+    .top-card h3 {
+        color: #6FAAE2
+    }
 
 .card-link-wrapper {
     display: block;
@@ -414,15 +421,14 @@ a:hover {
     flex-direction: column;
     align-items: center;
     background-color: #fff;
-    border-radius: 8px;
-    padding: 24px;
-    max-width: 600px;
-    width: 90%;
-    max-height: 90vh;
-    gap: 16px; 
+    width: 100vw;
+    height: 100vh;
+    gap: 16px;
     overflow-y: auto;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    padding-bottom: 24px;
 }
+
 .title-card {
     display: flex;
     width: 100%;
@@ -432,26 +438,20 @@ a:hover {
     align-items: center;
 }
 
-.title-card title-content {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
+    .title-card title-content {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     .title-card img {
         width: 100px;
         height: 100px;
         border-radius: 50%;
         object-fit: cover;
     }
-.photo-profile {
-    width: 100px;
-    display: none;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-}
 
 .close-btn {
     text-decoration: none;
@@ -491,10 +491,25 @@ a:hover {
     .patient-card {
         aspect-ratio: 16 / 6;
     }
-    .row-data-container {
-        flex-direction:row;
 
+    .modal-card {
+        display: flex;
+        justify-content: space-evenly;
+        align-content: center;
     }
+
+    .row-data-container {
+        flex-direction: row;
+        width: 80%;
+        padding: 8px 6px;
+        gap: 12px;
+        background-color: #D3DDE6
+    }
+
+    .add-patient-container {
+        width: 30%;
+    }
+
     .container-header {
         display: flex;
         flex-direction: row;
@@ -503,12 +518,11 @@ a:hover {
         gap: 0px;
         align-items: center;
     }
+
     .search-container {
         display: flex;
-        width: 70%;
+        width: 65%;
     }
-
-
 }
 
 @media screen and (min-width: 1280px) {
@@ -525,6 +539,21 @@ a:hover {
         width: 40%;
     }
 
+    .modal-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 24px 0px;
+        max-width: 600px;
+        width: 90%;
+        max-height: 90vh;
+        gap: 16px;
+        overflow-y: auto;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
     .patient-list-container {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -532,6 +561,7 @@ a:hover {
     .patient-card {
         aspect-ratio: 16 / 6;
     }
+
     .row-data-container {
         flex-direction: row;
     }

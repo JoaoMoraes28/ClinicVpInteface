@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PatientCard.ascx.cs" Inherits="ClinicVpInterface.Components.PatientCard" %>
 
 <article class="patient-card">
-    <div class="containter-patient-photo">
+    <div class="container-patient-photo">
         <img runat="server" id="photo" class="photo-profile" src="/Photo_patient.png" alt="Foto de perfil do paciente." />
     </div>
     <div class="datas-container">
