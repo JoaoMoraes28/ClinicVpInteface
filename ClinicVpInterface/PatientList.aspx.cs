@@ -123,9 +123,18 @@ namespace ClinicVpInterface
 
         protected void BtnUpdate_Click(object sender, EventArgs e)
         {
+
             if (ViewState["SelectedPatientId"] != null)
             {
-                Response.Redirect($"/PatientForm.aspx?id={ViewState["SelectedPatientId"]}");
+                int patientId = Convert.ToInt32(ViewState["SelectedPatientId"]);
+
+                Response.Redirect($"~/PatientForm.aspx?id={patientId}", false);
+                Context.ApplicationInstance.CompleteRequest();
+            }
+            else
+            {
+    
+                ScriptManager.RegisterStartupScript(this, GetType(), "alertViewState", "alert('ID do paciente não encontrado na sessão da página. Por favor, selecione o paciente novamente.');", true);
             }
         }
 

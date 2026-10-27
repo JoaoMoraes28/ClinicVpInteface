@@ -324,7 +324,8 @@ namespace ClinicVpInterface
         private void RedirectPageForListPatient()
         {
             CleanFields();
-            Response.Redirect("PatientList.aspx", true);
+            Response.Redirect("PatientList.aspx", false);
+            Context.ApplicationInstance.CompleteRequest();
         }
 
         protected void CloseModalResponse(object sender, EventArgs e)
