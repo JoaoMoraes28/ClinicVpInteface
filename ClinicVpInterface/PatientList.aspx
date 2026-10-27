@@ -102,7 +102,7 @@
                 <input type="text" id="txtSearch" runat="server" placeholder="Busque um paciente por nome ou CPF" />
             </div>
 
-            <a href="/PatientForm.aspx?id=26" class="add-patient-container" style="align-content: center;">
+            <a href="/PatientForm.aspx" class="add-patient-container" style="align-content: center;">
                 <p style="color: #ffffff; font-weight: bold; font-size: 16px; margin-top: 14px;">Adicionar Paciente</p>
                 <i class="fa-solid fa-user"></i>
                 <span class="add-patient-text">+</span>
