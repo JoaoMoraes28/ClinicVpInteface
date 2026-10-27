@@ -46,12 +46,18 @@ namespace ClinicVpInterface
             {
                 if (!string.IsNullOrWhiteSpace(searchTerm))
                 {
-
                     string cleanSearchTerm = new string(searchTerm.Where(char.IsDigit).ToArray());
 
                     string searchLower = searchTerm.Trim().ToLower();
 
-                    patients = patients.Where(p => p.Cpf.Contains(searchTerm)).ToList();
+                    if (string.IsNullOrWhiteSpace(cleanSearchTerm))
+                    {
+                        patients = patients.Where(p => p.Name.ToLower().Contains(searchTerm)).ToList();
+                    }
+                    else
+                    {
+                        patients = patients.Where(p => p.Cpf.Contains(cleanSearchTerm)).ToList();
+                    }
                 }
             }
 

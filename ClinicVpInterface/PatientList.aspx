@@ -1,7 +1,5 @@
 ﻿<%@ Page Title="Lista de Pacientes" Language="C#" Async="true" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PatientList.aspx.cs" Inherits="ClinicVpInterface.PatientList" %>
 
-<%@ Register Src="~/Components/PatientCard.ascx" TagName="Card" TagPrefix="uc1" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server" Style="padding: 8px 32px;">
 
     <%-- Modal Overlay --%>
@@ -116,9 +114,6 @@
                         <asp:Repeater ID="rptPatients" runat="server" OnItemCommand="RptPatients_ItemCommand">
                             <ItemTemplate>
                                 <asp:LinkButton ID="lnkSelectCard" runat="server" CommandName="SelectPatient" CommandArgument='<%# Eval("Id") %>' CssClass="card-link-wrapper">
-                                    <%--<uc1:Card runat="server" PatientId='<%# Eval("Id") %>' Name='<%# Eval("Name") %>' Cpf='<%# Eval("Cpf") %>' Phone='<%# Eval("Phone") %>' Photo='<%# Eval("Photo") %>'/>--%>
-
-
                                     <article class="patient-card">
                                         <div class="container-patient-photo">
                                             <img runat="server" id="photo" class="photo-profile" src='<%# string.IsNullOrEmpty(Eval("Photo") as string) ? "/Photo_patient.png" : Eval("Photo") %>' alt="Foto de perfil do paciente." />
