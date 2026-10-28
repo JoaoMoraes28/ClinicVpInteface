@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using ClinicVpInterface.Services.Auth;
+using System;
+using System.Net;
 
 namespace ClinicVpInterface
 {
@@ -12,6 +9,37 @@ namespace ClinicVpInterface
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected async void PostLogin(object sender, EventArgs e)
+        {
+            Auth _serviceAuth = new Auth();
+
+            if (string.IsNullOrWhiteSpace(email.Text) || string.IsNullOrWhiteSpace(password.Text))
+            {
+                resultMessage.Text = "Email ou senha inválidos!";
+                return;
+            }
+
+            var credentials = new AuthDto(email.Text, password.Text);
+
+            var (login, statusCode) = await _serviceAuth.Login(credentials);
+
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.NotFound)
+            {
+                resultMessage.Text = "Ocorreu um erro ao tentar realizar o login!";
+                return;
+            }
+
+            if (!(login.Authorized) || statusCode == HttpStatusCode.NotFound)
+            {
+                resultMessage.Text = "Email e/ou senha incorretos!";
+                return;
+            }
+            else
+            {
+                Response.Redirect("/PatientList.aspx");
+            }
         }
     }
 }
