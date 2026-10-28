@@ -29,7 +29,7 @@ namespace ClinicVpInterface.Services.Midia
 
             MidiaResponseDto midia = JsonSerializer.Deserialize<MidiaResponseDto>(jsonResponse, options);
 
-            return midia.SecureUrl ?? string.Empty;
+            return midia.SecureUrl ?? null;
         }
 
     }

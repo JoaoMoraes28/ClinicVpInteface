@@ -13,8 +13,8 @@
                 </asp:LinkButton>
             </div>
             <div class="title-card">
-                <div style="border: solid; border-width: 2px; border-color: var(--blue-primary); border-radius: 100%;">
-                    <asp:Image ID="imgPatientPhoto" runat="server" ImageUrl="/Photo_patient.png" AlternateText="Foto Paciente" />
+                <div style="border: solid; border-width: 2px; border-color: var(--blue-primary); border-radius: 100%;" class="imgProfileDatasContainer">
+                    <asp:Image ID="imgPatientPhoto" runat="server" ImageUrl="/Photo_patient.png" AlternateText="Foto Paciente" CssClass="imgProfileDatas" />
                 </div>
 
                 <div class="title-content">
@@ -97,7 +97,7 @@
                 <asp:LinkButton ID="btnSearch" runat="server" CssClass="btn-search" OnClick="BtnSearch_Click" CausesValidation="false">
                             <i class="fa fa-search"></i>
                 </asp:LinkButton>
-                <input type="text" id="txtSearch" runat="server" placeholder="Busque um paciente por nome ou CPF" />
+                <asp:TextBox AutoPostBack="true" OnTextChange="BtnSearch_Click" id="search" runat="server" placeholder="Busque um paciente por nome ou CPF" />
             </div>
 
             <a href="/PatientForm.aspx" class="add-patient-container" style="align-content: center;">
@@ -120,8 +120,8 @@
                                         </div>
                                         <div class="datas-container">
                                             <p id="name" runat="server" class="name"><%# Eval("Name") %></p>
-                                            <p id="cpf" runat="server" class="cpf">CPF: <%# Eval("Cpf") %></p>
-                                            <p id="phone" runat="server" class="phone">Telefone: <%# Eval("Phone") %></p>
+                                            <p id="cpf" runat="server" class="cpf">CPF: <%# FormatCpf(Eval("Cpf")) %></p>
+                                            <p id="phone" runat="server" class="phone">Telefone: <%# FormatPhone(Eval("Phone")) %></p>
                                         </div>
                                     </article>
                                 </asp:LinkButton>

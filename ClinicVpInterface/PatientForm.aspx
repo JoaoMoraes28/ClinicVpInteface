@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
     inputFile.addEventListener("change", function (event) {
         const file = event.target.files[0];
 
-        if (file) { 
+        if (file) {
             let url = URL.createObjectURL(file);
 
             document.getElementById("profilePhoto").src = url;
@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     <main id="mainContainer" runat="server">
 
+        <%--Input para guardar aquivo vindo do input de img--%>
         <asp:HiddenField ClientIDMode="Static" ID="fileImg" runat="server" />
 
         <%--Modal de resultado de registro ou atualização de paciente--%>
@@ -52,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <header style="position: relative; width: 100%; display: flex; justify-content: center;">
             <div class="container-profile-photo">
                 <asp:FileUpload ClientIDMode="Static" ID="photoFile" runat="server" Style="position: absolute; width: 100%; height: 100%; opacity: 0; border-radius: 100%;"></asp:FileUpload>
-                <img ClientIDMode="Static" runat="server" id="profilePhoto" class="profile-img" src="/Photo_patient.png" alt="Alternate Text" />
+                <img clientidmode="Static" runat="server" id="profilePhoto" class="profile-img" src="/Photo_patient.png" alt="Alternate Text" />
             </div>
             <a href="PatientList.aspx"
                 class="set-back">
@@ -70,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <asp:Label CssClass="text-danger" Text="*" runat="server" />
                 </div>
             </div>
-            
+
             <div class="container-inputs">
                 <div class="container-input">
                     <asp:TextBox ID="cpf" ClientIDMode="Static" CssClass="input-patient" runat="server" placeHolder="000.000.000-00" />
@@ -101,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
-            
+
             <div class="container-inputs">
                 <div class="container-input">
                     <asp:TextBox ID="profession" CssClass="input-patient" runat="server" placeHolder="Gerente, Diarista, Cabelereiro..." />
@@ -128,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
-            
+
             <div class="container-input">
                 <asp:TextBox ID="email" CssClass="input-patient" runat="server" placeHolder="example@email.com" TextMode="Email" />
                 <div class="container-label">
@@ -136,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <asp:Label CssClass="text-danger" Text="*" runat="server" />
                 </div>
             </div>
-            
+
             <div class="container-inputs">
                 <div class="container-input">
                     <asp:TextBox ID="phone" ClientIDMode="Static" CssClass="input-patient" runat="server" placeHolder="(11) 91234-5678" />
@@ -152,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                 </div>
             </div>
-            
+
             <div class="container-inputs">
                 <div class="container-input">
                     <asp:TextBox ID="weight" CssClass="input-patient" runat="server" placeHolder="91.5 (Kg)" TextMode="Number" />
@@ -167,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                 </div>
             </div>
-            
+
             <div class="container-inputs">
                 <div class="container-input">
                     <asp:TextBox ID="bornDate" CssClass="input-patient" runat="server" placeHolder="30/09/1998" TextMode="Date" />
@@ -203,72 +204,76 @@ document.addEventListener("DOMContentLoaded", function () {
         </section>
 
         <%--Dados de endereço do paciente--%>
-        <section>
-            <h2>Endereço <span>(Digite o CEP primeiro para a busca de dados)</span></h2>
+        <asp:UpdatePanel runat="server" Style="width: 100%;">
+            <ContentTemplate>
+                <section>
+                    <h2>Endereço <span>(Digite o CEP primeiro para a busca de dados)</span></h2>
 
-            <div class="container-input">
-                <asp:TextBox AutoPostBack="true" ClientIDMode="Static" OnTextChanged="GetAddressByCep" ID="cep" CssClass="input-patient" runat="server" placeHolder="00000-000" />
-                <div class="container-label">
-                    <asp:Label Text="CEP" runat="server" />
-                    <asp:Label CssClass="text-danger" Text="*" runat="server" />
-                </div>
-            </div>
+                    <div class="container-input">
+                        <asp:TextBox AutoPostBack="true" ClientIDMode="Static" OnTextChanged="GetAddressByCep" ID="cep" CssClass="input-patient" runat="server" placeHolder="00000-000" />
+                        <div class="container-label">
+                            <asp:Label Text="CEP" runat="server" />
+                            <asp:Label CssClass="text-danger" Text="*" runat="server" />
+                        </div>
+                    </div>
 
-            <div class="container-inputs">
-                <div class="container-input">
-                    <asp:TextBox ID="city" CssClass="input-patient" runat="server" placeHolder="Osasco" ReadOnly="true" />
-                    <div class="container-label">
-                        <asp:Label Text="Cidade" runat="server" />
-                        <asp:Label CssClass="text-danger" Text="*" runat="server" />
+                    <div class="container-inputs">
+                        <div class="container-input">
+                            <asp:TextBox ID="city" CssClass="input-patient" runat="server" placeHolder="Osasco" ReadOnly="true" />
+                            <div class="container-label">
+                                <asp:Label Text="Cidade" runat="server" />
+                                <asp:Label CssClass="text-danger" Text="*" runat="server" />
+                            </div>
+                        </div>
+                        <div class="container-input">
+                            <asp:TextBox ID="uf" CssClass="input-patient" runat="server" placeHolder="SP" ReadOnly="true" />
+                            <div class="container-label">
+                                <asp:Label Text="UF" runat="server" />
+                                <asp:Label CssClass="text-danger" Text="*" runat="server" />
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="container-input">
-                    <asp:TextBox ID="uf" CssClass="input-patient" runat="server" placeHolder="SP" ReadOnly="true" />
-                    <div class="container-label">
-                        <asp:Label Text="UF" runat="server" />
-                        <asp:Label CssClass="text-danger" Text="*" runat="server" />
-                    </div>
-                </div>
-            </div>
 
-            <div class="container-input">
-                <asp:TextBox ID="district" CssClass="input-patient" runat="server" placeHolder="Bairro das Rosas" ReadOnly="true" />
-                <div class="container-label">
-                    <asp:Label Text="Bairro" runat="server" />
-                    <asp:Label CssClass="text-danger" Text="*" runat="server" />
-                </div>
-            </div>
+                    <div class="container-input">
+                        <asp:TextBox ID="district" CssClass="input-patient" runat="server" placeHolder="Bairro das Rosas" ReadOnly="true" />
+                        <div class="container-label">
+                            <asp:Label Text="Bairro" runat="server" />
+                            <asp:Label CssClass="text-danger" Text="*" runat="server" />
+                        </div>
+                    </div>
 
-            <div class="container-inputs">
-                <div class="container-input">
-                    <asp:TextBox ID="street" CssClass="input-patient" runat="server" placeHolder="Av. dos Autonomistas" ReadOnly="true" />
-                    <div class="container-label">
-                        <asp:Label Text="Rua" runat="server" />
-                        <asp:Label CssClass="text-danger" Text="*" runat="server" />
+                    <div class="container-inputs">
+                        <div class="container-input">
+                            <asp:TextBox ID="street" CssClass="input-patient" runat="server" placeHolder="Av. dos Autonomistas" ReadOnly="true" />
+                            <div class="container-label">
+                                <asp:Label Text="Rua" runat="server" />
+                                <asp:Label CssClass="text-danger" Text="*" runat="server" />
+                            </div>
+                        </div>
+                        <div class="container-input">
+                            <asp:TextBox ID="number" CssClass="input-patient" runat="server" placeHolder="167" />
+                            <div class="container-label">
+                                <asp:Label Text="N°" runat="server" />
+                                <asp:Label CssClass="text-danger" Text="*" runat="server" />
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="container-input">
-                    <asp:TextBox ID="number" CssClass="input-patient" runat="server" placeHolder="167" />
-                    <div class="container-label">
-                        <asp:Label Text="N°" runat="server" />
-                        <asp:Label CssClass="text-danger" Text="*" runat="server" />
+
+                    <div class="container-input" style="height: 240px;">
+                        <asp:TextBox ID="observations" CssClass="text-patient" runat="server" TextMode="MultiLine" placeHolder="Descreva brevemente caso o paciente tenha alguma alergia, doença crônica ou faz uso de remédios..." />
+                        <div class="container-label">
+                            <asp:Label ID="lblObs" Text="Observações" runat="server" />
+                        </div>
                     </div>
-                </div>
-            </div> 
-           
-            <div class="container-input" style="height: 240px;">
-                <asp:TextBox ID="observations" CssClass="text-patient" runat="server" TextMode="MultiLine" placeHolder="Descreva brevemente caso o paciente tenha alguma alergia, doença crônica ou faz uso de remédios..." />
-                <div class="container-label">
-                    <asp:Label ID="lblObs" Text="Observações" runat="server" />
-                </div>
-            </div>
-        </section>
+                </section>
+            </ContentTemplate>
+        </asp:UpdatePanel>
 
         <div style="width: 100%; display: flex; flex-direction: column; justify-content: space-between; align-content: center; height: 120px;">
             <asp:Label CssClass="text-danger text-center w-100" ID="errorMessage" Text="" runat="server" />
             <asp:Button ClientIDMode="Static" ID="submitButton" OnClick="ChoiceFunctionButtonSubmit" CssClass="btn btn-primary button-register" Text="Cadastrar" runat="server" />
         </div>
-    
+
     </main>
 
 </asp:Content>

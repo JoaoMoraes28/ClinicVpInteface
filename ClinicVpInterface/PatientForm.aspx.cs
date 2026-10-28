@@ -32,6 +32,7 @@ namespace ClinicVpInterface
             }
         }
 
+
         //Métodos que manipulam dados e interações do HTML
         private void CleanFields()
         {
@@ -62,6 +63,7 @@ namespace ClinicVpInterface
         {
             var (patient, statusCode) = await GetPatientId(id);
 
+            profilePhoto.Src = string.IsNullOrWhiteSpace(patient.Patient.Photo) ? "/Photo_patient.png" : $"{patient.Patient.Photo}";
             name.Text = $"{patient.Patient.Name}";
             cpf.Text = $"{patient.Patient.Cpf}";
             civilState.Text = $"{SetValueCivilState(patient.Patient.CivilState)}";
@@ -148,6 +150,7 @@ namespace ClinicVpInterface
             panelBloodType.Visible = false;
         }
 
+
         //Métodos para requisições HTTP
         private async Task<PatientWriteDto> GetPatientWriteModel()
         {
@@ -215,7 +218,12 @@ namespace ClinicVpInterface
 
             var guid = Guid.NewGuid();
 
-            var photo = await _serviceMidia.GetUrlImgProfile(photoFile.FileContent, guid.ToString());
+            string photo = null;
+
+            if (photoFile.HasFile)
+            {
+                photo = await _serviceMidia.GetUrlImgProfile(photoFile.FileContent, guid.ToString());
+            }
 
             var patient = new PatientWriteBase(name.Text, cpfFormated, email.Text == "" ? null : email.Text, phoneFormated, photo, profession.Text == "" ? null : profession.Text, gender.Text == "Masculino" ? "MALE" : "FEMALE",
                 GetValueCivilState(civilState.Text), GetValueBloodType(bloodType.Text) == "" ? null : GetValueBloodType(bloodType.Text), weightPatient, heightPatient, bornDate.Text,
@@ -275,6 +283,11 @@ namespace ClinicVpInterface
             if (updatePatient == null)
             {
                 return;
+            }
+
+            if (updatePatient.Patient.Photo == null && profilePhoto.Src != "/Photo_patient.png")
+            {
+                updatePatient.Patient.Photo = profilePhoto.Src;
             }
 
             int patientId = Convert.ToInt32(Request.QueryString["id"]);
