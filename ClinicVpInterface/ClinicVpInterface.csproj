@@ -122,6 +122,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="favicon.png" />
+    <Content Include="Image_login.png" />
     <Content Include="log-main.png" />
     <Content Include="Login.aspx" />
     <Content Include="PatientForm.aspx" />
@@ -216,6 +217,8 @@
       <DependentUpon>PatientList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Auth\Auth.cs" />
+    <Compile Include="Services\Auth\AuthDto.cs" />
     <Compile Include="Services\Cep\Cep.cs" />
     <Compile Include="Services\Cep\CepDto.cs" />
     <Compile Include="Services\Midia\Midia.cs" />
