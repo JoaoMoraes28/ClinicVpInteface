@@ -122,6 +122,8 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="favicon.png" />
+    <Content Include="log-main.png" />
+    <Content Include="Login.aspx" />
     <Content Include="PatientForm.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -189,6 +191,13 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PatientForm.aspx.cs">
       <DependentUpon>PatientForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

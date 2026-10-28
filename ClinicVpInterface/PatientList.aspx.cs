@@ -24,22 +24,17 @@ namespace ClinicVpInterface
             }
         }
 
+
+        //Métodos que manipulam dados e interações no HTML
         protected async void BtnSearch_Click(object sender, EventArgs e)
         {
 
             await FilterPatients();
         }
-        private async Task LoadPatientsAsync()
-        {
-            var (patients, statusCode) = await _servicePatient.GetPatientsPreview();
-
-            rptPatients.DataSource = patients;
-            rptPatients.DataBind();
-        }
 
         private async Task FilterPatients()
         {
-            string searchTerm = txtSearch.Value;
+            string searchTerm = search.Text;
             var (patients, statusCode) = await _servicePatient.GetPatientsPreview();
 
             if (statusCode == HttpStatusCode.OK && patients != null)
@@ -64,6 +59,7 @@ namespace ClinicVpInterface
             rptPatients.DataSource = patients;
             rptPatients.DataBind();
         }
+
         protected void RptPatients_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "SelectPatient")
@@ -85,7 +81,6 @@ namespace ClinicVpInterface
                 var a = response.Address;
 
                 imgPatientPhoto.ImageUrl = string.IsNullOrWhiteSpace(p.Photo) ? "/Photo_patient.png" : p.Photo;
-
                 litName.Text = p.Name ?? "N/A";
                 litCpf.Text = FormatCpf(p.Cpf);
                 litCivilState.Text = SetValueCivilState(p.CivilState);
@@ -139,7 +134,7 @@ namespace ClinicVpInterface
             }
             else
             {
-    
+
                 ScriptManager.RegisterStartupScript(this, GetType(), "alertViewState", "alert('ID do paciente não encontrado na sessão da página. Por favor, selecione o paciente novamente.');", true);
             }
         }
@@ -165,6 +160,18 @@ namespace ClinicVpInterface
             }
         }
 
+
+        //Métodos para requisições HTTP
+        private async Task LoadPatientsAsync()
+        {
+            var (patients, statusCode) = await _servicePatient.GetPatientsPreview();
+
+            rptPatients.DataSource = patients;
+            rptPatients.DataBind();
+        }
+
+
+        //Métodos de formatação dos dados e tradução de dados BANCO <--> INTEFACE
         private int CalculateAge(DateTime dateOfBirth)
         {
             int age = DateTime.Now.Year - dateOfBirth.Year;
@@ -172,10 +179,18 @@ namespace ClinicVpInterface
             return age;
         }
 
-        private string FormatCpf(string cpf)
+        protected string FormatCpf(object value)
         {
+            string cpf = value.ToString();
             if (string.IsNullOrWhiteSpace(cpf) || cpf.Length != 11) return cpf ?? "N/A";
             return Convert.ToUInt64(cpf).ToString(@"000\.000\.000\-00");
+        }
+
+        protected string FormatPhone(object value)
+        {
+            string phone = value.ToString();
+            if (string.IsNullOrWhiteSpace(phone) || phone.Length != 11) return phone ?? "N/A";
+            return Convert.ToUInt64(phone).ToString(@"(00) 00000-0000");
         }
 
         private string SetValueCivilState(string state)
