@@ -124,7 +124,6 @@ namespace ClinicVpInterface
 
         protected void BtnUpdate_Click(object sender, EventArgs e)
         {
-
             if (ViewState["SelectedPatientId"] != null)
             {
                 int patientId = Convert.ToInt32(ViewState["SelectedPatientId"]);
@@ -134,8 +133,9 @@ namespace ClinicVpInterface
             }
             else
             {
-
-                ScriptManager.RegisterStartupScript(this, GetType(), "alertViewState", "alert('ID do paciente não encontrado na sessão da página. Por favor, selecione o paciente novamente.');", true);
+                // Substituindo o alert nativo pelo Toast de Erro personalizado
+                string script = "showErrorToast('ID do paciente não encontrado. Selecione-o novamente.');";
+                ScriptManager.RegisterStartupScript(updMain, updMain.GetType(), "errorToastScript", script, true);
             }
         }
 
@@ -150,12 +150,16 @@ namespace ClinicVpInterface
                     modalOverlay.Visible = false;
                     ViewState["SelectedPatientId"] = null;
 
-                    string script = "alert('Paciente inativado com sucesso!'); window.location.reload();";
-                    ScriptManager.RegisterStartupScript(this, GetType(), "successReload", script, true);
+                    await LoadPatientsAsync();
+
+                    string script = "showSuccessToast();";
+                    ScriptManager.RegisterStartupScript(updMain, updMain.GetType(), "successToastScript", script, true);
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(this, GetType(), "alert", "alert('Erro ao excluir paciente.');", true);
+                    // Chamando o Toast de Erro personalizado com uma mensagem específica
+                    string script = "showErrorToast('Erro ao excluir paciente. Tente novamente.');";
+                    ScriptManager.RegisterStartupScript(updMain, updMain.GetType(), "errorToastScript", script, true);
                 }
             }
         }
