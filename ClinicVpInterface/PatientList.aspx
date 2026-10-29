@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="Lista de Pacientes" Language="C#" Async="true" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PatientList.aspx.cs" Inherits="ClinicVpInterface.PatientList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server" Style="padding: 8px 32px;">
+    
+    <%-- Referência para o arquivo JavaScript que você criou --%>
+    <script src="<%= ResolveUrl("~/Scripts/patientFeedback.js") %>" type="text/javascript"></script>
 
     <%-- Modal Overlay --%>
     <div id="modalOverlay" runat="server" class="modal-overlay" visible="false">
@@ -131,5 +134,38 @@
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>
+    </div>
+
+
+    <%-- Card de Feedback / Toast de Sucesso com Barra de Progresso --%>
+    <div id="successToast" class="toast-overlay" style="display: none;">
+        <div class="toast-card">
+            <button type="button" class="toast-close-btn" onclick="hideSuccessToast()">×</button>
+        
+            <div class="toast-content">
+                <p class="toast-message">Paciente inativado com sucesso!</p>
+                <div class="toast-spinner"></div>
+            </div>
+
+            <div class="toast-progress-bar-container">
+                <div id="toastProgressBar" class="toast-progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+        <%-- Card de Feedback / Toast de Erro com Barra de Progresso --%>
+    <div id="errorToast" class="toast-overlay" style="display: none;">
+        <div class="toast-card toast-card-error">
+            <button type="button" class="toast-close-btn" onclick="hideErrorToast()">×</button>
+    
+            <div class="toast-content">
+                <p id="errorToastMessage" class="toast-message">Erro ao processar a solicitação.</p>
+                <div class="toast-spinner toast-spinner-error"></div>
+            </div>
+
+            <div class="toast-progress-bar-container">
+                <div id="errorToastProgressBar" class="toast-progress-bar toast-progress-bar-error"></div>
+            </div>
+        </div>
     </div>
 </asp:Content>

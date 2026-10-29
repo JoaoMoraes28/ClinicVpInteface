@@ -557,6 +557,137 @@ h2 {
     border-color: white;
 }
 
+/* Overlay translúcido para centralizar o card de feedback */
+.toast-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* O Card Principal */
+.toast-card {
+    background: #ffffff;
+    width: 320px;
+    padding: 20px 20px 10px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    position: relative;
+    text-align: center;
+    animation: fadeInScale 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Botão X */
+.toast-close-btn {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: #888;
+    cursor: pointer;
+}
+
+    .toast-close-btn:hover {
+        color: #333;
+    }
+
+/* Mensagem e Spinner */
+.toast-content {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.toast-message {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Animação do Spinner Circular */
+.toast-spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid var(--blue-primary, #007bff);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Container da Barra de Progresso */
+.toast-progress-bar-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #eee;
+}
+
+/* A Barra de Progresso em si */
+.toast-progress-bar {
+    width: 100%;
+    height: 100%;
+    background-color: var(--blue-primary, #007bff);
+    animation: progressCountdown 6s linear forwards;
+}
+
+@keyframes progressCountdown {
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
+}
+/* Variação de Erro (Borda ou detalhes em vermelho) */
+.toast-card-error {
+    border-top: 4px solid #dc3545;
+}
+
+/* Spinner com cor de erro */
+.toast-spinner-error {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #dc3545;
+}
+
+/* Barra de progresso com cor de erro */
+.toast-progress-bar-error {
+    background-color: #dc3545;
+}
 
 /*Responsividade para tablet*/
 @media screen and (min-width: 768px) {
