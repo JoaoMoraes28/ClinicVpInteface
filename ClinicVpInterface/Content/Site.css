@@ -815,6 +815,7 @@ h2 {
         border-start-start-radius: 15px;
         border-end-start-radius: 15px;
         border-end-end-radius: 0px;
+        padding: 50px 25px 20px 25px;
     }
 
     .container-image-login {
@@ -826,9 +827,12 @@ h2 {
         height: 100%;
     }
 
-    .image-login {
-        width: auto;
-        height: 60%;
+    .container-forget-pass {
+        height: 30px;
+    }
+
+    .container-button-login {
+        height: 50px;
     }
 
     h2 {

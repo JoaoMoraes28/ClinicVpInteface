@@ -77,6 +77,9 @@ namespace ClinicVpInterface
             bornDate.Text = $"{patient.Patient.BornDate.ToString().Split(' ')[0]}";
             bloodType.Text = $"{SetValueBloodType(patient.Patient.BloodType)}";
 
+            int weightInt = Convert.ToInt32(patient.Patient.Weight);
+
+            weight.Text = $"{weightInt}";
             cep.Text = $"{patient.Address.Cep}";
             city.Text = $"{patient.Address.City}";
             uf.Text = $"{patient.Address.UfAddress}";

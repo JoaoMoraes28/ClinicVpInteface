@@ -87,8 +87,8 @@ namespace ClinicVpInterface
                 litGender.Text = string.Equals(p.Gender, "MALE", StringComparison.OrdinalIgnoreCase) ? "Masculino" : "Feminino";
                 litProfession.Text = !string.IsNullOrWhiteSpace(p.Professional) ? p.Professional : "N/A";
                 litEmail.Text = !string.IsNullOrWhiteSpace(p.Email) ? p.Email : "N/A";
-                litPhone.Text = !string.IsNullOrWhiteSpace(p.Phone) ? p.Phone : "N/A";
-                litEmergencyPhone.Text = !string.IsNullOrWhiteSpace(p.PhoneEmergency) ? p.PhoneEmergency : "N/A";
+                litPhone.Text = !string.IsNullOrWhiteSpace(p.Phone) ? FormatPhone(p.Phone) : "N/A";
+                litEmergencyPhone.Text = !string.IsNullOrWhiteSpace(p.PhoneEmergency) ? FormatPhone(p.PhoneEmergency) : "N/A";
 
                 litWeight.Text = p.Weight.HasValue ? $"{p.Weight.Value} Kg" : "N/A";
                 litHeight.Text = p.Height.HasValue ? $"{p.Height.Value} cm" : "N/A";
@@ -111,7 +111,7 @@ namespace ClinicVpInterface
                     ? $"{a.Street}, {a.Number} - {a.District} - {a.City}/{a.UfAddress}"
                     : "Endereço não informado";
 
-                litObservations.Text = !string.IsNullOrWhiteSpace(p.Observations) ? p.Observations : "Sem observações cadastradas.";
+                litObservations.Text = !string.IsNullOrWhiteSpace(p.Notes) ? p.Notes : "Sem observações cadastradas.";
 
                 modalOverlay.Visible = true;
             }

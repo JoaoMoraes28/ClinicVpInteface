@@ -80,7 +80,8 @@
 
             <div class="row-data-container">
                 <span>
-                    <asp:Literal ID="litObservations" runat="server" /></span>
+                    <asp:Literal ID="litObservations" runat="server" />
+                </span>
             </div>
 
             <div class="row-data-container">
